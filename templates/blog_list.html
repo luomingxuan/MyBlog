@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="d-flex align-items-center justify-content-between mb-3">
+  <h1 class="mb-0">博客</h1>
+  <div>
+    <a class="btn btn-primary" href="{{ url_for('blog_upload') }}">上传Markdown</a>
+    <a class="btn btn-outline-secondary" href="{{ url_for('blog_edit', slug='new-post') }}">新建/在线编辑</a>
+  </div>
+  </div>
+<ul class="list-group">
+  {% for p in posts %}
+  <li class="list-group-item d-flex justify-content-between align-items-center">
+    <div>
+      <a href="{{ url_for('blog_view', slug=p.slug) }}">{{ p.title }}</a>
+      <span class="text-muted">({{ p.slug }})</span>
+    </div>
+    <a class="btn btn-sm btn-outline-primary" href="{{ url_for('blog_edit', slug=p.slug) }}">编辑</a>
+  </li>
+  {% endfor %}
+  {% if posts|length == 0 %}
+  <li class="list-group-item">暂无文章</li>
+  {% endif %}
+</ul>
+{% endblock %}
+

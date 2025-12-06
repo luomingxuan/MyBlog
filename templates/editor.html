@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">编辑：{{ slug }}</h1>
+<form method="post">
+  <textarea id="editor" name="content">{{ content }}</textarea>
+  <div class="mt-3">
+    <button class="btn btn-primary" type="submit">保存</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('blog_view', slug=slug) }}">返回</a>
+  </div>
+</form>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.css">
+<script src="https://cdn.jsdelivr.net/npm/easymde/dist/easymde.min.js"></script>
+<script>
+  var easyMDE = new EasyMDE({element: document.getElementById('editor')});
+</script>
+{% endblock %}
+
