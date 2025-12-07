@@ -1,34 +1,26 @@
 {% extends 'base.html' %}
 {% block content %}
-<div class="d-flex align-items-center justify-content-between mb-3">
-  <h1 class="mb-0">博客</h1>
-  <div>
-    {% if is_owner %}
-    <a class="btn btn-primary" href="{{ url_for('blog_bp.blog_upload') }}">上传Markdown</a>
-    <a class="btn btn-outline-secondary" href="{{ url_for('blog_bp.blog_edit', slug='new-post') }}">新建/在线编辑</a>
-    {% endif %}
+<div class="page-hero" {% if background_url %}style="background-image:url('{{ background_url }}')"{% endif %}>
+  {% if logo_url %}
+  <img class="page-logo" src="{{ logo_url }}" alt="logo">
+  {% endif %}
+  <h1 class="mb-0 text-white text-shadow">{{ title }}</h1>
   </div>
-</div>
-<div class="row g-3 cards-grid">
-  {% for p in posts %}
+
+
+
+{% if latest_posts %}
+<h2 class="mt-4">最新博客</h2>
+  <div class="row g-3 cards-grid">
+  {% for p in latest_posts %}
   <div class="col-12 col-md-6 col-lg-4">
-    <div class="card-item panel-glass p-3 d-flex justify-content-between align-items-center" tabindex="0">
+    <div class="card-item panel-glass p-3" tabindex="0">
       <a class="card-title-link home-title" href="{{ url_for('blog_bp.blog_view', slug=p.slug) }}">{{ p.title }}</a>
-      {% if is_owner %}
-      <div class="d-flex align-items-center gap-2">
-        <a class="btn btn-sm btn-light" href="{{ url_for('blog_bp.blog_edit', slug=p.slug) }}">编辑</a>
-        <form method="post" action="{{ url_for('blog_bp.blog_delete', slug=p.slug) }}" onsubmit="return confirm('确认删除该博客？');">
-          <button class="btn btn-sm btn-outline-light" type="submit">删除</button>
-        </form>
-      </div>
-      {% endif %}
     </div>
   </div>
   {% endfor %}
-  {% if posts|length == 0 %}
-  <div class="col-12"><div class="panel-glass p-3">暂无文章</div></div>
-  {% endif %}
 </div>
+{% endif %}
 <script>
   (function(){
     var items = document.querySelectorAll('.cards-grid .card-item');
@@ -57,5 +49,6 @@
     });
   })();
 </script>
-{% endblock %}
 
+
+{% endblock %}

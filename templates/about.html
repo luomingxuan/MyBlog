@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="page-hero" {% if background_url %}style="background-image:url('{{ background_url }}')"{% endif %}>
+  {% if logo_url %}
+  <img class="page-logo" src="{{ logo_url }}" alt="logo">
+  {% endif %}
+  <h1 class="mb-0 text-white emboss">{{ title }}</h1>
+</div>
+<div class="row mt-4">
+  <div class="col-md-8">
+    <div class="panel-glass">
+      <div class="bigger-text mb-3 emboss">基本信息</div>
+      <p class="mb-2 big-text emboss"><strong>姓名：</strong>{{ name if name else '未设置' }}</p>
+      <p class="mb-2 big-text emboss"><strong>研究方向：</strong>{{ direction if direction else '未设置' }}</p>
+      <p class="mb-0 big-text emboss"><strong>个人寄语：</strong>{{ message if message else '未设置' }}</p>
+      <hr class="border-light opacity-50">
+      <div class="bigger-text mb-2 emboss">个人经历</div>
+      <div class="big-text emboss" style="white-space:pre-wrap;">{{ experience if experience else '未设置' }}</div>
+      <div class="bigger-text mt-3 mb-2 emboss">获奖荣誉</div>
+      <div class="big-text emboss" style="white-space:pre-wrap;">{{ awards if awards else '未设置' }}</div>
+      <div class="mt-3">
+        {% if is_owner %}
+        <a class="btn btn-light" href="{{ url_for('about_bp.about_edit') }}">编辑资料</a>
+        {% endif %}
+        {% if resume_url %}
+        <a class="btn btn-primary ms-2" href="{{ url_for('about_bp.resume_download') }}">下载简历</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

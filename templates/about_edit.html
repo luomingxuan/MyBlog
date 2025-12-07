@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block content %}
+<h1 class="mb-3">编辑个人资料</h1>
+<form method="post" enctype="multipart/form-data" class="row gy-3">
+  <div class="col-12">
+    <label class="form-label">姓名</label>
+    <input class="form-control" type="text" name="name" value="{{ name }}" placeholder="例如：张三">
+  </div>
+  <div class="col-12">
+    <label class="form-label">研究方向</label>
+    <input class="form-control" type="text" name="direction" value="{{ direction }}" placeholder="例如：机器学习/系统优化">
+  </div>
+  <div class="col-12">
+    <label class="form-label">个人寄语</label>
+    <textarea class="form-control" name="message" rows="4" placeholder="你的座右铭或寄语">{{ message }}</textarea>
+  </div>
+  <div class="col-12">
+    <label class="form-label">个人经历</label>
+    <textarea class="form-control" name="experience" rows="6" placeholder="学习/工作/项目经历等，支持多行">{{ experience }}</textarea>
+  </div>
+  <div class="col-12">
+    <label class="form-label">获奖荣誉</label>
+    <textarea class="form-control" name="awards" rows="6" placeholder="比赛、奖学金、荣誉称号等，支持多行">{{ awards }}</textarea>
+  </div>
+  <div class="col-12">
+    <label class="form-label">上传简历（PDF/Word）</label>
+    <input class="form-control" type="file" name="resume" accept=".pdf,.doc,.docx">
+    {% if resume_url %}
+    <div class="form-text">已上传：<a href="{{ resume_url }}" target="_blank">下载当前简历</a></div>
+    {% endif %}
+  </div>
+  <div class="col-12">
+    <button class="btn btn-primary" type="submit">保存</button>
+    <a class="btn btn-outline-secondary" href="{{ url_for('about_bp.about') }}">返回</a>
+  </div>
+</form>
+{% endblock %}
